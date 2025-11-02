@@ -1,12 +1,14 @@
 name: Run Automated Tests
-
 on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
+    strategy: # <--- New Section
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }} # <--- Now uses the OS from the matrix
     steps:
+    # ... (rest of the steps remain unchanged)
       - name: Checkout Repository
         uses: actions/checkout@v4
 
